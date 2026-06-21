@@ -2,6 +2,7 @@ import SectionTitle from '../components/ui/SectionTitle';
 import ConceptCard from '../components/ui/ConceptCard';
 import CodeBlock from '../components/ui/CodeBlock';
 import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
 
 const CODIGO_INFERIDO = `
 // TypeScript infiere el tipo desde el valor inicial
@@ -66,6 +67,30 @@ setFiltros(prev => ({
   busqueda: 'zapatillas',
   pagina: 1,
 }));
+`;
+
+const PLAYGROUND_SOLUCION = `
+type EstadoCarga = 'inactivo' | 'cargando' | 'exito' | 'error';
+
+function BuscadorUsuarios() {
+  const [resultados, setResultados] = React.useState<string[]>([]);
+  const [seleccionado, setSeleccionado] = React.useState<string | null>(null);
+  const [estado, setEstado] = React.useState<EstadoCarga>('inactivo');
+
+  const buscar = () => {
+    setEstado('cargando');
+    setResultados(['Ana', 'Carlos']);
+    setSeleccionado('Ana');
+    setEstado('error');
+  };
+
+  return (
+    <div>
+      <button onClick={buscar}>Buscar</button>
+      <p>Estado: {estado}</p>
+    </div>
+  );
+}
 `;
 
 const PLAYGROUND_INICIAL = `
@@ -198,6 +223,7 @@ export default function UseStatePage() {
           archivo="ejercicio-03.tsx"
           altura={240}
         />
+        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-03.tsx" />
       </section>
     </>
   );

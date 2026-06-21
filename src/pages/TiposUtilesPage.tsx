@@ -2,6 +2,7 @@ import SectionTitle from '../components/ui/SectionTitle';
 import ConceptCard from '../components/ui/ConceptCard';
 import CodeBlock from '../components/ui/CodeBlock';
 import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
 
 const CODIGO_DOM_EVENTS = `
 // React define tipos para todos los eventos del DOM
@@ -117,6 +118,31 @@ function Boton({ variante, className, children, ...resto }: BotonProps) {
 
 // Ahora el componente acepta todos los atributos de <button>
 // más la prop 'variante' que definimos nosotros
+`;
+
+const PLAYGROUND_SOLUCION = `
+function CampoTexto() {
+  const [valor, setValor] = React.useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValor(e.target.value);
+
+  return <input value={valor} onChange={handleChange} />;
+}
+
+interface TarjetaProps {
+  titulo: string;
+  children: React.ReactNode;
+}
+
+function Tarjeta({ titulo, children }: TarjetaProps) {
+  return <div><h2>{titulo}</h2>{children}</div>;
+}
+
+const estilos: React.CSSProperties = {
+  backgroundColor: '#3178c6',
+  padding: '8px 16px',
+  borderRadius: '6px',
+};
 `;
 
 const PLAYGROUND_INICIAL = `
@@ -257,6 +283,7 @@ export default function TiposUtilesPage() {
           archivo="ejercicio-07.tsx"
           altura={240}
         />
+        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-07.tsx" />
       </section>
     </>
   );

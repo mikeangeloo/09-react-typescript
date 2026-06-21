@@ -2,6 +2,7 @@ import SectionTitle from '../components/ui/SectionTitle';
 import ConceptCard from '../components/ui/ConceptCard';
 import CodeBlock from '../components/ui/CodeBlock';
 import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
 
 const CODIGO_ESTADO = `
 // Primero define el tipo del estado
@@ -74,6 +75,45 @@ dispatch({ tipo: 'incrementar' });           // ✅
 dispatch({ tipo: 'cambiarPaso', valor: 5 }); // ✅
 dispatch({ tipo: 'duplicar' });               // ❌ Error: no existe ese tipo
 dispatch({ tipo: 'cambiarPaso' });            // ❌ Error: falta 'valor'
+`;
+
+const PLAYGROUND_SOLUCION = `
+interface EstadoContador {
+  conteo: number;
+  paso: number;
+}
+
+type AccionContador =
+  | { tipo: 'incrementar' }
+  | { tipo: 'decrementar' }
+  | { tipo: 'cambiarPaso'; valor: number };
+
+function reducer(estado: EstadoContador, accion: AccionContador): EstadoContador {
+  switch (accion.tipo) {
+    case 'incrementar':
+      return { ...estado, conteo: estado.conteo + estado.paso };
+    case 'decrementar':
+      return { ...estado, conteo: estado.conteo - estado.paso };
+    case 'cambiarPaso':
+      return { ...estado, paso: accion.valor };
+    default:
+      return estado;
+  }
+}
+
+function Contador() {
+  const [estado, dispatch] = React.useReducer(reducer, { conteo: 0, paso: 1 });
+
+  return (
+    <div>
+      <p>Conteo: {estado.conteo} (paso: {estado.paso})</p>
+      <button onClick={() => dispatch({ tipo: 'incrementar' })}>+</button>
+      <button onClick={() => dispatch({ tipo: 'decrementar' })}>-</button>
+      {/* 'duplicar' no existe → TypeScript marca error */}
+      <button onClick={() => dispatch({ tipo: 'duplicar' })}>×2</button>
+    </div>
+  );
+}
 `;
 
 const PLAYGROUND_INICIAL = `
@@ -209,6 +249,7 @@ export default function UseReducerPage() {
           archivo="ejercicio-04.tsx"
           altura={280}
         />
+        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-04.tsx" />
       </section>
     </>
   );

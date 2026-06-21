@@ -2,6 +2,7 @@ import SectionTitle from '../components/ui/SectionTitle';
 import ConceptCard from '../components/ui/ConceptCard';
 import CodeBlock from '../components/ui/CodeBlock';
 import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
 
 const CODIGO_CONTEXTO_SIMPLE = `
 import { createContext, useContext } from 'react';
@@ -116,6 +117,32 @@ function Navegacion() {
       <span>Hola, {usuario}</span>
       <button onClick={cerrarSesion}>Salir</button>
     </nav>
+  );
+}
+`;
+
+const PLAYGROUND_SOLUCION = `
+type Tema = 'claro' | 'oscuro';
+
+interface ContextoTemaValor {
+  tema: Tema;
+  cambiarTema: () => void;
+}
+
+const ContextoTema = React.createContext<ContextoTemaValor | null>(null);
+
+function useTema(): ContextoTemaValor {
+  const ctx = React.useContext(ContextoTema);
+  if (!ctx) throw new Error('useTema debe usarse dentro de <TemaProvider>');
+  return ctx;
+}
+
+function BotonTema() {
+  const { tema, cambiarTema } = useTema();
+  return (
+    <button onClick={cambiarTema}>
+      Tema actual: {tema}
+    </button>
   );
 }
 `;
@@ -243,6 +270,7 @@ export default function UseContextPage() {
           archivo="ejercicio-05.tsx"
           altura={280}
         />
+        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-05.tsx" />
       </section>
     </>
   );

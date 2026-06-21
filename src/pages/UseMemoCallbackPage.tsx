@@ -2,6 +2,7 @@ import SectionTitle from '../components/ui/SectionTitle';
 import ConceptCard from '../components/ui/ConceptCard';
 import CodeBlock from '../components/ui/CodeBlock';
 import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
 
 const CODIGO_USEMEMO = `
 import { useMemo } from 'react';
@@ -142,6 +143,35 @@ function useFormulario(camposIniciales: Record<string, string>) {
 }
 `;
 
+const PLAYGROUND_SOLUCION = `
+function Formulario() {
+  const [nombre, setNombre] = React.useState('');
+  const [edad, setEdad] = React.useState(0);
+
+  const handleNombre = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setNombre(e.target.value);
+  }, []);
+
+  const handleSubmit = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log({ nombre, edad });
+  }, [nombre, edad]);
+
+  // TypeScript infiere 'string' automáticamente
+  const resumen = React.useMemo(
+    () => \`\${nombre} tiene \${edad} años\`,
+    [nombre, edad]
+  );
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input onChange={handleNombre} value={nombre} />
+      <p>{resumen}</p>
+    </form>
+  );
+}
+`;
+
 const PLAYGROUND_INICIAL = `
 // Ejercicio: agrega los tipos correctos a los event handlers del componente
 
@@ -275,6 +305,7 @@ export default function UseMemoCallbackPage() {
           archivo="ejercicio-06.tsx"
           altura={220}
         />
+        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-06.tsx" />
       </section>
     </>
   );

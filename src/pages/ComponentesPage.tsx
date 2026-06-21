@@ -2,6 +2,7 @@ import SectionTitle from '../components/ui/SectionTitle';
 import ConceptCard from '../components/ui/ConceptCard';
 import CodeBlock from '../components/ui/CodeBlock';
 import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
 
 const CODIGO_INLINE = `
 // Tipos inline: directo en los parámetros
@@ -72,6 +73,27 @@ function Contenedor({ children, titulo }: ContenedorProps) {
 // <Contenedor titulo="Mi sección">
 //   <p>Cualquier contenido aquí</p>
 // </Contenedor>
+`;
+
+const PLAYGROUND_SOLUCION = `
+interface TarjetaUsuarioProps {
+  nombre: string;
+  email: string;
+  edad: number;
+  bio?: string;
+}
+
+function TarjetaUsuario({ nombre, email, edad, bio }: TarjetaUsuarioProps) {
+  return (
+    <div>
+      <h2>{nombre} ({edad})</h2>
+      <p>{email}</p>
+      {bio && <p>{bio}</p>}
+    </div>
+  );
+}
+
+const test = <TarjetaUsuario nombre="Ana" email="ana@dev.io" edad={28} />;
 `;
 
 const PLAYGROUND_INICIAL = `
@@ -196,6 +218,7 @@ export default function ComponentesPage() {
           archivo="ejercicio-02.tsx"
           altura={240}
         />
+        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-02.tsx" />
       </section>
     </>
   );

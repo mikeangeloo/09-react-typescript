@@ -2,6 +2,7 @@ import SectionTitle from '../components/ui/SectionTitle';
 import ConceptCard from '../components/ui/ConceptCard';
 import CodeBlock from '../components/ui/CodeBlock';
 import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
 
 const CODIGO_SETUP = `
 # Crear un proyecto nuevo con TypeScript desde cero
@@ -65,6 +66,27 @@ const CODIGO_EXTENSIONES = `
 // src/App.tsx     ← tiene JSX → extensión .tsx
 // src/utils.ts    ← solo lógica → extensión .ts
 // src/types.ts    ← solo tipos → extensión .ts
+`;
+
+const PLAYGROUND_SOLUCION = `
+interface BotonProps {
+  etiqueta: string;
+  variante: 'primario' | 'peligro';
+  onClick?: () => void;
+}
+
+function Boton({ etiqueta, variante, onClick }: BotonProps) {
+  return (
+    <button
+      style={{ background: variante === 'peligro' ? 'red' : 'blue' }}
+      onClick={onClick}
+    >
+      {etiqueta}
+    </button>
+  );
+}
+
+const elemento = <Boton etiqueta="Guardar" variante="primario" />;
 `;
 
 const PLAYGROUND_INICIAL = `// Ejercicio: corrige los errores de TypeScript en este componente React
@@ -186,6 +208,7 @@ export default function InstallacionPage() {
           archivo="ejercicio-01.tsx"
           altura={220}
         />
+        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-01.tsx" />
       </section>
     </>
   );
