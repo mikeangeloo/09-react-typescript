@@ -1,0 +1,81 @@
+.concept-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-card);
+
+  &--error {
+    border: 1px solid var(--error-border);
+  }
+
+  &--success {
+    border: 1px solid var(--success-border);
+  }
+
+  &__header {
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &--error {
+      background: var(--error-bg);
+      border-bottom: 1px solid var(--error-border);
+      color: var(--error-color);
+    }
+
+    &--success {
+      background: var(--success-bg);
+      border-bottom: 1px solid var(--success-border);
+      color: var(--success-color);
+    }
+  }
+
+  &__body {
+    padding: 14px 16px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: #9da7b3;
+  }
+}
+
+.note-card {
+  border-left: 3px solid var(--accent);
+  background: rgba(49, 120, 198, 0.07);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+
+  &__title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--accent-light);
+    margin-bottom: 7px;
+    letter-spacing: 0.5px;
+  }
+
+  &__body {
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: #adbac7;
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--code-blue);
+      background: #161b22;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+  }
+}
+
+// Fragmento de código inline usado en texto corrido
+.ic {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--code-blue);
+  background: #161b22;
+  padding: 1px 6px;
+  border-radius: 4px;
+}

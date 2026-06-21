@@ -1,0 +1,53 @@
+// ── Overrides de Bootstrap (deben ir ANTES del @import de bootstrap) ──
+$primary:               #3178c6;
+$body-bg:               #0f1117;
+$body-color:            #c9d1d9;
+$border-radius:         8px;
+$border-radius-lg:      10px;
+$font-family-base:      'Inter', sans-serif;
+$font-family-monospace: 'JetBrains Mono', monospace;
+$link-color:            #58a6ff;
+$link-hover-color:      #79c0ff;
+
+// ── Tokens de diseño propios (variables CSS) ──
+:root {
+  --bg-main:        #0f1117;
+  --bg-sidebar:     #0c0e14;
+  --bg-card:        #13161c;
+  --bg-editor:      #0d1017;
+  --bg-chrome:      #161b22;
+
+  --border-subtle:  #1a1f29;
+  --border-dim:     #21262d;
+
+  --text-primary:   #e6edf3;
+  --text-secondary: #c9d1d9;
+  --text-muted:     #8b949e;
+  --text-dimmer:    #6e7681;
+  --text-dimmest:   #5a6069;
+  --text-label:     #586069;
+
+  --accent:         #3178c6;
+  --accent-light:   #58a6ff;
+
+  --code-blue:      #79c0ff;
+  --code-purple:    #d2a8ff;
+  --code-red:       #ff7b72;
+  --code-orange:    #ffa657;
+  --code-string:    #a5d6ff;
+
+  --error-color:    #f0786f;
+  --error-bg:       rgba(248, 81, 73, 0.08);
+  --error-border:   rgba(248, 81, 73, 0.3);
+
+  --success-color:  #56d364;
+  --success-bg:     rgba(63, 185, 80, 0.08);
+  --success-border: rgba(63, 185, 80, 0.3);
+
+  --btn-chrome-red:    #ff5f57;
+  --btn-chrome-yellow: #febc2e;
+  --btn-chrome-green:  #28c840;
+
+  --font-ui:   'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}

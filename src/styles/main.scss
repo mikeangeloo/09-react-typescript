@@ -1,0 +1,69 @@
+// 1. Variables propias ANTES de Bootstrap (para sobrescribir los !default)
+@import 'variables';
+
+// 2. Bootstrap completo
+@import 'bootstrap/scss/bootstrap';
+
+// 3. Parciales propios
+@import 'sidebar';
+@import 'cards';
+
+// 4. Resets y base global
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg-main);
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100%;
+}
+
+// 5. Scrollbar global
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #21262d;
+  border-radius: 5px;
+  border: 2px solid var(--bg-main);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+// 6. Selección de texto
+::selection {
+  background: rgba(49, 120, 198, 0.35);
+}
+
+// 7. Texto del contenido principal
+.page-body {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: #adbac7;
+}
+
+// 8. Código inline en texto corrido
+code {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--code-blue);
+  background: #161b22;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
