@@ -1,8 +1,8 @@
-import SectionTitle from '../components/ui/SectionTitle';
-import ConceptCard from '../components/ui/ConceptCard';
-import CodeBlock from '../components/ui/CodeBlock';
-import TypescriptPlayground from '../components/playground/TypescriptPlayground';
-import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
+import SectionTitle from "../components/ui/SectionTitle";
+import ConceptCard from "../components/ui/ConceptCard";
+import CodeBlock from "../components/ui/CodeBlock";
+import TypescriptPlayground from "../components/playground/TypescriptPlayground";
+import PlaygroundSolucion from "../components/ui/PlaygroundSolucion";
 
 const CODIGO_ESTADO = `
 // Primero define el tipo del estado
@@ -153,103 +153,135 @@ function Contador() {
 export default function UseReducerPage() {
   return (
     <>
-      <header style={{ marginBottom: '48px' }}>
+      <header style={{ marginBottom: "48px" }}>
         <div
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
             fontWeight: 600,
-            letterSpacing: '2px',
-            color: 'var(--accent)',
-            marginBottom: '16px',
+            letterSpacing: "2px",
+            color: "var(--accent)",
+            marginBottom: "16px",
           }}
         >
           MÓDULO 4
         </div>
         <h1
           style={{
-            fontSize: '48px',
+            fontSize: "48px",
             fontWeight: 700,
-            color: 'var(--text-primary)',
-            margin: '0 0 14px',
-            letterSpacing: '-1.5px',
+            color: "var(--text-primary)",
+            margin: "0 0 14px",
+            letterSpacing: "-1.5px",
             lineHeight: 1,
           }}
         >
           useReducer
         </h1>
-        <p style={{ fontSize: '17px', color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>
+        <p
+          style={{
+            fontSize: "17px",
+            color: "var(--text-muted)",
+            margin: 0,
+            lineHeight: 1.5,
+          }}
+        >
           Tipando estado y acciones con discriminated unions
         </p>
       </header>
 
       {/* 01 — CONCEPTO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="01" etiqueta="CONCEPTO" />
         <p className="page-body" style={{ margin: 0 }}>
-          <code>useReducer</code> es ideal para estados complejos con múltiples transiciones. TypeScript se beneficia especialmente aquí porque los <strong style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>discriminated unions</strong> para las acciones permiten al compilador saber exactamente qué propiedades tiene cada acción en cada rama del <code>switch</code>.
+          <code>useReducer</code> es ideal para estados complejos con múltiples
+          transiciones. TypeScript se beneficia especialmente aquí porque los{" "}
+          <strong style={{ color: "var(--text-secondary)", fontWeight: 600 }}>
+            discriminated unions
+          </strong>{" "}
+          para las acciones permiten al compilador saber exactamente qué
+          propiedades tiene cada acción en cada rama del <code>switch</code>.
         </p>
       </section>
 
       {/* 02 — TIPO DEL ESTADO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="02" etiqueta="TIPO DEL ESTADO" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Define el tipo del estado con una <code>interface</code> antes del reducer. Esto documenta claramente qué datos maneja el componente.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Define el tipo del estado con una <code>interface</code> antes del
+          reducer. Esto documenta claramente qué datos maneja el componente.
         </p>
         <CodeBlock codigo={CODIGO_ESTADO} archivo="contador.tsx" />
       </section>
 
       {/* 03 — DISCRIMINATED UNIONS */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="03" etiqueta="DISCRIMINATED UNIONS" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          El patrón más poderoso para tipar acciones. Cada variante tiene una propiedad <code>tipo</code> única que TypeScript usa para <em>estrechar</em> el tipo dentro de cada rama del <code>switch</code>.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          El patrón más poderoso para tipar acciones. Cada variante tiene una
+          propiedad <code>tipo</code> única que TypeScript usa para{" "}
+          <em>estrechar</em> el tipo dentro de cada rama del <code>switch</code>
+          .
         </p>
         <CodeBlock codigo={CODIGO_ACCIONES} archivo="contador-acciones.ts" />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           <ConceptCard tipo="error">
-            Sin tipar las acciones, el <code>dispatch</code> acepta cualquier objeto y los errores de lógica solo aparecen en tiempo de ejecución.
+            Sin tipar las acciones, el <code>dispatch</code> acepta cualquier
+            objeto y los errores de lógica solo aparecen en tiempo de ejecución.
           </ConceptCard>
           <ConceptCard tipo="exito">
-            Con el discriminated union, TypeScript garantiza que solo se despachen acciones válidas y que cada acción tenga exactamente las propiedades que necesita.
+            Con el discriminated union, TypeScript garantiza que solo se
+            despachen acciones válidas y que cada acción tenga exactamente las
+            propiedades que necesita.
           </ConceptCard>
         </div>
       </section>
 
       {/* 04 — EL REDUCER */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="04" etiqueta="EL REDUCER" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Dentro de cada caso del <code>switch</code>, TypeScript estrecha el tipo de la acción automáticamente. En <code>case 'cambiarPaso'</code>, sabe que <code>accion.valor</code> existe.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Dentro de cada caso del <code>switch</code>, TypeScript estrecha el
+          tipo de la acción automáticamente. En <code>case 'cambiarPaso'</code>,
+          sabe que <code>accion.valor</code> existe.
         </p>
         <CodeBlock codigo={CODIGO_REDUCER} archivo="reducer.ts" />
       </section>
 
       {/* 05 — USO CON useReducer */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="05" etiqueta="USO CON useReducer" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          TypeScript infiere el tipo del <code>estado</code> y del <code>dispatch</code> automáticamente desde la función reducer y el estado inicial. No necesitas anotar nada más.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          TypeScript infiere el tipo del <code>estado</code> y del{" "}
+          <code>dispatch</code> automáticamente desde la función reducer y el
+          estado inicial. No necesitas anotar nada más.
         </p>
         <CodeBlock codigo={CODIGO_USO} archivo="Contador.tsx" />
         <ConceptCard tipo="nota">
-          El tipo del <code>dispatch</code> es <code>Dispatch&lt;AccionContador&gt;</code> — TypeScript lo infiere del reducer. Si pasas el dispatch como prop a un hijo, puedes usarlo como tipo.
+          El tipo del <code>dispatch</code> es{" "}
+          <code>Dispatch&lt;AccionContador&gt;</code> — TypeScript lo infiere
+          del reducer. Si pasas el dispatch como prop a un hijo, puedes usarlo
+          como tipo.
         </ConceptCard>
       </section>
 
       {/* 06 — PLAYGROUND */}
       <section>
         <SectionTitle numero="06" etiqueta="PLAYGROUND" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Reemplaza <code>unknown</code> con el discriminated union correcto para <code>AccionTarea</code>. Luego implementa el <code>switch</code> dentro del reducer.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Reemplaza <code>unknown</code> con el discriminated union correcto
+          para <code>AccionTarea</code>. Luego implementa el <code>switch</code>{" "}
+          dentro del reducer.
         </p>
         <TypescriptPlayground
           codigoInicial={PLAYGROUND_INICIAL}
           archivo="ejercicio-04.tsx"
-          altura={280}
+          altura={520}
         />
-        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-04.tsx" />
+        <PlaygroundSolucion
+          codigo={PLAYGROUND_SOLUCION}
+          archivo="solucion-04.tsx"
+        />
       </section>
     </>
   );

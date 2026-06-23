@@ -1,8 +1,8 @@
-import SectionTitle from '../components/ui/SectionTitle';
-import ConceptCard from '../components/ui/ConceptCard';
-import CodeBlock from '../components/ui/CodeBlock';
-import TypescriptPlayground from '../components/playground/TypescriptPlayground';
-import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
+import SectionTitle from "../components/ui/SectionTitle";
+import ConceptCard from "../components/ui/ConceptCard";
+import CodeBlock from "../components/ui/CodeBlock";
+import TypescriptPlayground from "../components/playground/TypescriptPlayground";
+import PlaygroundSolucion from "../components/ui/PlaygroundSolucion";
 
 const CODIGO_CONTEXTO_SIMPLE = `
 import { createContext, useContext } from 'react';
@@ -181,65 +181,91 @@ function BotonTema() {
 export default function UseContextPage() {
   return (
     <>
-      <header style={{ marginBottom: '48px' }}>
+      <header style={{ marginBottom: "48px" }}>
         <div
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
             fontWeight: 600,
-            letterSpacing: '2px',
-            color: 'var(--accent)',
-            marginBottom: '16px',
+            letterSpacing: "2px",
+            color: "var(--accent)",
+            marginBottom: "16px",
           }}
         >
           MÓDULO 5
         </div>
         <h1
           style={{
-            fontSize: '48px',
+            fontSize: "48px",
             fontWeight: 700,
-            color: 'var(--text-primary)',
-            margin: '0 0 14px',
-            letterSpacing: '-1.5px',
+            color: "var(--text-primary)",
+            margin: "0 0 14px",
+            letterSpacing: "-1.5px",
             lineHeight: 1,
           }}
         >
           useContext
         </h1>
-        <p style={{ fontSize: '17px', color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>
+        <p
+          style={{
+            fontSize: "17px",
+            color: "var(--text-muted)",
+            margin: 0,
+            lineHeight: 1.5,
+          }}
+        >
           Contexto tipado y patrón null safety
         </p>
       </header>
 
       {/* 01 — CONCEPTO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="01" etiqueta="CONCEPTO" />
         <p className="page-body" style={{ margin: 0 }}>
-          <code>useContext</code> infiere el tipo automáticamente desde el tipo del contexto creado con <code>createContext</code>. El reto es decidir qué valor usar al crear el contexto: si usas <code>null</code>, TypeScript fuerza a verificar <code>null</code> antes de usar el valor, lo que es más seguro.
+          <code>useContext</code> infiere el tipo automáticamente desde el tipo
+          del contexto creado con <code>createContext</code>. El reto es decidir
+          qué valor usar al crear el contexto: si usas <code>null</code>,
+          TypeScript fuerza a verificar <code>null</code> antes de usar el
+          valor, lo que es más seguro.
         </p>
       </section>
 
       {/* 02 — CONTEXTO SIMPLE */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="02" etiqueta="CONTEXTO SIMPLE" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Cuando el contexto tiene un valor por defecto sensato (siempre disponible), puedes crearlo directamente con ese valor y TypeScript infiere el tipo.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Cuando el contexto tiene un valor por defecto sensato (siempre
+          disponible), puedes crearlo directamente con ese valor y TypeScript
+          infiere el tipo.
         </p>
         <CodeBlock codigo={CODIGO_CONTEXTO_SIMPLE} archivo="ContextoTema.tsx" />
       </section>
 
       {/* 03 — EL PROBLEMA DE NULL */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="03" etiqueta="EL PROBLEMA DE NULL" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Muchos contextos no tienen un valor "vacío" que sea lógico. La tentación es pasar <code>null</code> como valor inicial, pero sin el genérico explícito esto causa un tipo incorrecto.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Muchos contextos no tienen un valor "vacío" que sea lógico. La
+          tentación es pasar <code>null</code> como valor inicial, pero sin el
+          genérico explícito esto causa un tipo incorrecto.
         </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            marginBottom: "16px",
+          }}
+        >
           <ConceptCard tipo="error">
-            <code>createContext(null)</code> infiere el tipo <code>null</code>, haciendo que el contexto siempre sea <code>null</code> para TypeScript aunque el Provider pase un valor real.
+            <code>createContext(null)</code> infiere el tipo <code>null</code>,
+            haciendo que el contexto siempre sea <code>null</code> para
+            TypeScript aunque el Provider pase un valor real.
           </ConceptCard>
           <ConceptCard tipo="exito">
-            <code>createContext&lt;DatosUsuario | null&gt;(null)</code> informa a TypeScript que el contexto puede ser <code>DatosUsuario</code> o <code>null</code>, y obliga a hacer la verificación.
+            <code>createContext&lt;DatosUsuario | null&gt;(null)</code> informa
+            a TypeScript que el contexto puede ser <code>DatosUsuario</code> o{" "}
+            <code>null</code>, y obliga a hacer la verificación.
           </ConceptCard>
         </div>
         <CodeBlock codigo={CODIGO_NULL_PROBLEMA} archivo="❌ problema.tsx" />
@@ -247,30 +273,39 @@ export default function UseContextPage() {
       </section>
 
       {/* 04 — CUSTOM HOOK */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="04" etiqueta="PATRÓN CUSTOM HOOK" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          El patrón más robusto: un custom hook que encapsula el contexto, verifica que no sea <code>null</code> en runtime y devuelve un tipo no-nullable. Así los componentes hijos nunca tienen que verificar <code>null</code>.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          El patrón más robusto: un custom hook que encapsula el contexto,
+          verifica que no sea <code>null</code> en runtime y devuelve un tipo
+          no-nullable. Así los componentes hijos nunca tienen que verificar{" "}
+          <code>null</code>.
         </p>
         <CodeBlock codigo={CODIGO_CUSTOM_HOOK} archivo="auth-context.tsx" />
         <CodeBlock codigo={CODIGO_PROVIDER_USO} archivo="uso.tsx" />
         <ConceptCard tipo="nota">
-          El error que lanza <code>useAuth</code> cuando se usa fuera del Provider es deliberado: es mucho mejor fallar rápido con un mensaje claro que tener un bug silencioso en producción.
+          El error que lanza <code>useAuth</code> cuando se usa fuera del
+          Provider es deliberado: es mucho mejor fallar rápido con un mensaje
+          claro que tener un bug silencioso en producción.
         </ConceptCard>
       </section>
 
       {/* 05 — PLAYGROUND */}
       <section>
         <SectionTitle numero="05" etiqueta="PLAYGROUND" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Implementa el contexto de preferencias siguiendo el patrón del custom hook con null safety.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Implementa el contexto de preferencias siguiendo el patrón del custom
+          hook con null safety.
         </p>
         <TypescriptPlayground
           codigoInicial={PLAYGROUND_INICIAL}
           archivo="ejercicio-05.tsx"
-          altura={280}
+          altura={520}
         />
-        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-05.tsx" />
+        <PlaygroundSolucion
+          codigo={PLAYGROUND_SOLUCION}
+          archivo="solucion-05.tsx"
+        />
       </section>
     </>
   );

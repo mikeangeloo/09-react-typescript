@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import Editor, { type BeforeMount } from '@monaco-editor/react';
 import type { editor } from 'monaco-editor';
+import PlaygroundPreview from './PlaygroundPreview';
 import './_playground.scss';
 
 // Declaraciones de tipos de React inyectadas globalmente en el worker de Monaco.
@@ -200,7 +201,10 @@ export default function TypescriptPlayground({
           <div className="playground__dot playground__dot--yellow" />
           <div className="playground__dot playground__dot--green" />
         </div>
-        <div className="playground__filename">{archivo}</div>
+        <div className="playground__filename">
+          {archivo}
+          <span className="playground__ts-badge">TS</span>
+        </div>
         <button className="playground__reset-btn" onClick={handleReset}>
           reset
         </button>
@@ -233,22 +237,22 @@ export default function TypescriptPlayground({
         }}
       />
 
-      {/* Panel de errores de TypeScript */}
-      <div className="playground__errors-panel">
-        <div className="playground__errors-label">ERRORES TYPESCRIPT</div>
-        {errores.length === 0 ? (
-          <div className="playground__no-errors">✓ Sin errores de tipo</div>
-        ) : (
-          errores.map((err, i) => (
+      {/* Panel inferior: errores cuando hay problemas, preview cuando el código es válido */}
+      {errores.length > 0 ? (
+        <div className="playground__errors-panel playground__errors-panel--con-errores">
+          <div className="playground__errors-label">ERRORES TYPESCRIPT</div>
+          {errores.map((err, i) => (
             <div key={i} className="playground__error-item">
               <span className="playground__error-pos">
                 L{err.linea}:{err.columna}
               </span>
               <span>{err.mensaje}</span>
             </div>
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <PlaygroundPreview codigo={codigo} />
+      )}
     </div>
   );
 }

@@ -1,8 +1,8 @@
-import SectionTitle from '../components/ui/SectionTitle';
-import ConceptCard from '../components/ui/ConceptCard';
-import CodeBlock from '../components/ui/CodeBlock';
-import TypescriptPlayground from '../components/playground/TypescriptPlayground';
-import PlaygroundSolucion from '../components/ui/PlaygroundSolucion';
+import SectionTitle from "../components/ui/SectionTitle";
+import ConceptCard from "../components/ui/ConceptCard";
+import CodeBlock from "../components/ui/CodeBlock";
+import TypescriptPlayground from "../components/playground/TypescriptPlayground";
+import PlaygroundSolucion from "../components/ui/PlaygroundSolucion";
 
 const CODIGO_INLINE = `
 // Tipos inline: directo en los parámetros
@@ -93,7 +93,7 @@ function TarjetaUsuario({ nombre, email, edad, bio }: TarjetaUsuarioProps) {
   );
 }
 
-const test = <TarjetaUsuario nombre="Ana" email="ana@dev.io" edad={28} />;
+const example = <TarjetaUsuario nombre="Ana" email="ana@dev.io" edad={28} />;
 `;
 
 const PLAYGROUND_INICIAL = `
@@ -116,93 +116,121 @@ function TarjetaUsuario({ nombre, email, edad, bio }) {
 }
 
 // Error: 'edad' debería ser number, no string
-const test = <TarjetaUsuario nombre="Ana" email="ana@dev.io" edad="28" />;
+const example = <TarjetaUsuario nombre="Ana" email="ana@dev.io" edad="28" />;
 `;
 
 export default function ComponentesPage() {
   return (
     <>
-      <header style={{ marginBottom: '48px' }}>
+      <header style={{ marginBottom: "48px" }}>
         <div
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
             fontWeight: 600,
-            letterSpacing: '2px',
-            color: 'var(--accent)',
-            marginBottom: '16px',
+            letterSpacing: "2px",
+            color: "var(--accent)",
+            marginBottom: "16px",
           }}
         >
           MÓDULO 2
         </div>
         <h1
           style={{
-            fontSize: '48px',
+            fontSize: "48px",
             fontWeight: 700,
-            color: 'var(--text-primary)',
-            margin: '0 0 14px',
-            letterSpacing: '-1.5px',
+            color: "var(--text-primary)",
+            margin: "0 0 14px",
+            letterSpacing: "-1.5px",
             lineHeight: 1,
           }}
         >
           Componentes
         </h1>
-        <p style={{ fontSize: '17px', color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>
+        <p
+          style={{
+            fontSize: "17px",
+            color: "var(--text-muted)",
+            margin: 0,
+            lineHeight: 1.5,
+          }}
+        >
           Tipando props con interfaces y types
         </p>
       </header>
 
       {/* 01 — CONCEPTO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="01" etiqueta="CONCEPTO" />
         <p className="page-body" style={{ margin: 0 }}>
-          Los componentes de React reciben datos mediante <strong style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>props</strong>. TypeScript nos permite declarar el tipo exacto de cada prop, lo que hace imposible pasar un valor incorrecto y nos da autocompletado en el editor.
+          Los componentes de React reciben datos mediante{" "}
+          <strong style={{ color: "var(--text-secondary)", fontWeight: 600 }}>
+            props
+          </strong>
+          . TypeScript nos permite declarar el tipo exacto de cada prop, lo que
+          hace imposible pasar un valor incorrecto y nos da autocompletado en el
+          editor.
         </p>
       </section>
 
       {/* 02 — TIPOS INLINE */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="02" etiqueta="TIPOS INLINE" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          La forma más simple: escribir los tipos directamente en el parámetro del componente. Funciona bien para componentes pequeños con pocas props.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          La forma más simple: escribir los tipos directamente en el parámetro
+          del componente. Funciona bien para componentes pequeños con pocas
+          props.
         </p>
         <CodeBlock codigo={CODIGO_INLINE} archivo="Boton.tsx" />
         <ConceptCard tipo="nota">
-          Los tipos inline pueden volverse difíciles de leer cuando hay muchas props. En ese caso es mejor usar una <code>interface</code> o un <code>type</code> separado.
+          Los tipos inline pueden volverse difíciles de leer cuando hay muchas
+          props. En ese caso es mejor usar una <code>interface</code> o un{" "}
+          <code>type</code> separado.
         </ConceptCard>
       </section>
 
       {/* 03 — INTERFACE */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="03" etiqueta="INTERFACE" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          La convención más extendida en React con TypeScript. Define el contrato de props fuera del componente usando la palabra clave <code>interface</code>.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          La convención más extendida en React con TypeScript. Define el
+          contrato de props fuera del componente usando la palabra clave{" "}
+          <code>interface</code>.
         </p>
         <CodeBlock codigo={CODIGO_INTERFACE} archivo="Boton.tsx" />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           <ConceptCard tipo="error">
-            Sin tipar las props, TypeScript no sabe qué valores son válidos. Cualquier error al usar el componente solo aparecerá en tiempo de ejecución.
+            Sin tipar las props, TypeScript no sabe qué valores son válidos.
+            Cualquier error al usar el componente solo aparecerá en tiempo de
+            ejecución.
           </ConceptCard>
           <ConceptCard tipo="exito">
-            Con la <code>interface</code> definida, el editor marca inmediatamente si falta una prop requerida o si se pasa un valor del tipo incorrecto.
+            Con la <code>interface</code> definida, el editor marca
+            inmediatamente si falta una prop requerida o si se pasa un valor del
+            tipo incorrecto.
           </ConceptCard>
         </div>
       </section>
 
       {/* 04 — TYPE */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="04" etiqueta="TYPE" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          <code>type</code> e <code>interface</code> son intercambiables para la mayoría de los casos de props en React. La diferencia relevante es que <code>interface</code> puede extenderse con <code>extends</code>, mientras que <code>type</code> usa intersección (<code>&</code>).
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          <code>type</code> e <code>interface</code> son intercambiables para la
+          mayoría de los casos de props en React. La diferencia relevante es que{" "}
+          <code>interface</code> puede extenderse con <code>extends</code>,
+          mientras que <code>type</code> usa intersección (<code>&</code>).
         </p>
         <CodeBlock codigo={CODIGO_TYPE} archivo="Tarjeta.tsx" />
       </section>
 
       {/* 05 — CHILDREN */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="05" etiqueta="PROP CHILDREN" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Para componentes que envuelven contenido, se tipan las <code>children</code> con <code>ReactNode</code>, que acepta cualquier valor que React pueda renderizar.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Para componentes que envuelven contenido, se tipan las{" "}
+          <code>children</code> con <code>ReactNode</code>, que acepta cualquier
+          valor que React pueda renderizar.
         </p>
         <CodeBlock codigo={CODIGO_CHILDREN} archivo="Contenedor.tsx" />
       </section>
@@ -210,15 +238,19 @@ export default function ComponentesPage() {
       {/* 06 — PLAYGROUND */}
       <section>
         <SectionTitle numero="06" etiqueta="PLAYGROUND" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Agrega una <code>interface</code> para las props del componente <code>Perfil</code> y úsala para corregir los errores.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Agrega una <code>interface</code> para las props del componente{" "}
+          <code>Perfil</code> y úsala para corregir los errores.
         </p>
         <TypescriptPlayground
           codigoInicial={PLAYGROUND_INICIAL}
           archivo="ejercicio-02.tsx"
-          altura={240}
+          altura={520}
         />
-        <PlaygroundSolucion codigo={PLAYGROUND_SOLUCION} archivo="solucion-02.tsx" />
+        <PlaygroundSolucion
+          codigo={PLAYGROUND_SOLUCION}
+          archivo="solucion-02.tsx"
+        />
       </section>
     </>
   );
