@@ -110,7 +110,7 @@ function BuscadorUsuarios() {
 
   const buscar = () => {
     setEstado('cargando');
-    setResultados(['Ana', 'Carlos']);   // debería funcionar con <string>
+    setResultados(['Ana', 'Carlos']);   // debería funcionar con un array de strings
     setSeleccionado('Ana');             // debería funcionar con string | null
     setEstado('error');                 // debería marcar error
   };

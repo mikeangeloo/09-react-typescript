@@ -148,6 +148,8 @@ function Contador() {
     </div>
   );
 }
+
+const example = <Contador />
 `;
 
 export default function UseReducerPage() {
@@ -200,7 +202,7 @@ export default function UseReducerPage() {
             discriminated unions
           </strong>{" "}
           para las acciones permiten al compilador saber exactamente qué
-          propiedades tiene cada acción en cada rama del <code>switch</code>.
+          propiedades tiene cada acción.
         </p>
       </section>
 

@@ -176,7 +176,8 @@ export default function InstallacionPage() {
         <ConceptCard tipo="nota">
           La plantilla <code>react-ts</code> ya incluye{" "}
           <code>@types/react</code> y <code>@types/react-dom</code>, que son los
-          tipos de React para TypeScript. No necesitas instalarlos por separado.
+          paquetes de desarrollo que contiene el tipado de React para
+          TypeScript. No necesitas instalarlos por separado.
         </ConceptCard>
       </section>
 
