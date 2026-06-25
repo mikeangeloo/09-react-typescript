@@ -204,6 +204,7 @@ function Formulario() {
     </form>
   );
 }
+  const example = <Formulario />
 `;
 
 export default function UseMemoCallbackPage() {

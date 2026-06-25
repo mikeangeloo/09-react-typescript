@@ -174,6 +174,9 @@ const estilos: ??? = {
   padding: '8px 16px',
   borderRadius: '6px',
 };
+
+const example = <Tarjeta/>
+const test = <CampoTexto/>
 `;
 
 export default function TiposUtilesPage() {
