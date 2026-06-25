@@ -1,7 +1,8 @@
-import SectionTitle from '../components/ui/SectionTitle';
-import ConceptCard from '../components/ui/ConceptCard';
-import CodeBlock from '../components/ui/CodeBlock';
-import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import SectionTitle from "../components/ui/SectionTitle";
+import ConceptCard from "../components/ui/ConceptCard";
+import CodeBlock from "../components/ui/CodeBlock";
+import TypescriptPlayground from "../components/playground/TypescriptPlayground";
+import PlaygroundSolucion from "../components/ui/PlaygroundSolucion";
 
 const CODIGO_USEMEMO = `
 import { useMemo } from 'react';
@@ -142,6 +143,35 @@ function useFormulario(camposIniciales: Record<string, string>) {
 }
 `;
 
+const PLAYGROUND_SOLUCION = `
+function Formulario() {
+  const [nombre, setNombre] = React.useState('');
+  const [edad, setEdad] = React.useState(0);
+
+  const handleNombre = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setNombre(e.target.value);
+  }, []);
+
+  const handleSubmit = React.useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log({ nombre, edad });
+  }, [nombre, edad]);
+
+  // TypeScript infiere 'string' automáticamente
+  const resumen = React.useMemo(
+    () => \`\${nombre} tiene \${edad} años\`,
+    [nombre, edad]
+  );
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input onChange={handleNombre} value={nombre} />
+      <p>{resumen}</p>
+    </form>
+  );
+}
+`;
+
 const PLAYGROUND_INICIAL = `
 // Ejercicio: agrega los tipos correctos a los event handlers del componente
 
@@ -179,87 +209,121 @@ function Formulario() {
 export default function UseMemoCallbackPage() {
   return (
     <>
-      <header style={{ marginBottom: '48px' }}>
+      <header style={{ marginBottom: "48px" }}>
         <div
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
             fontWeight: 600,
-            letterSpacing: '2px',
-            color: 'var(--accent)',
-            marginBottom: '16px',
+            letterSpacing: "2px",
+            color: "var(--accent)",
+            marginBottom: "16px",
           }}
         >
           MÓDULO 6
         </div>
         <h1
           style={{
-            fontSize: '48px',
+            fontSize: "48px",
             fontWeight: 700,
-            color: 'var(--text-primary)',
-            margin: '0 0 14px',
-            letterSpacing: '-1.5px',
+            color: "var(--text-primary)",
+            margin: "0 0 14px",
+            letterSpacing: "-1.5px",
             lineHeight: 1,
           }}
         >
           useMemo / useCallback
         </h1>
-        <p style={{ fontSize: '17px', color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>
+        <p
+          style={{
+            fontSize: "17px",
+            color: "var(--text-muted)",
+            margin: 0,
+            lineHeight: 1.5,
+          }}
+        >
           Tipos inferidos y event handlers tipados
         </p>
       </header>
 
       {/* 01 — CONCEPTO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="01" etiqueta="CONCEPTO" />
         <p className="page-body" style={{ margin: 0 }}>
-          <code>useMemo</code> y <code>useCallback</code> infieren sus tipos automáticamente desde la función que reciben. Rara vez necesitas anotar el tipo de retorno o el tipo del callback explícitamente. La excepción son los <strong style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>event handlers</strong>, donde TypeScript no puede inferir el tipo del evento sin información adicional.
+          <code>useMemo</code> y <code>useCallback</code> infieren sus tipos
+          automáticamente desde la función que reciben. Rara vez necesitas
+          anotar el tipo de retorno o el tipo del callback explícitamente. La
+          excepción son los{" "}
+          <strong style={{ color: "var(--text-secondary)", fontWeight: 600 }}>
+            event handlers
+          </strong>
+          , donde TypeScript no puede inferir el tipo del evento sin información
+          adicional.
         </p>
       </section>
 
       {/* 02 — USEMEMO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="02" etiqueta="USEMEMO" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          El tipo del valor memoizado se infiere del tipo de retorno de la función que recibe <code>useMemo</code>.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          El tipo del valor memoizado se infiere del tipo de retorno de la
+          función que recibe <code>useMemo</code>.
         </p>
         <CodeBlock codigo={CODIGO_USEMEMO} archivo="ListaProductos.tsx" />
         <ConceptCard tipo="nota">
-          React Compiler (experimental) puede eliminar la necesidad de <code>useMemo</code> y <code>useCallback</code> en muchos casos, pero entender su tipado sigue siendo relevante para proyectos sin el compiler.
+          React Compiler (experimental) puede eliminar la necesidad de{" "}
+          <code>useMemo</code> y <code>useCallback</code> en muchos casos, pero
+          entender su tipado sigue siendo relevante para proyectos sin el
+          compiler.
         </ConceptCard>
       </section>
 
       {/* 03 — USECALLBACK */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="03" etiqueta="USECALLBACK" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          <code>useCallback</code> también infiere el tipo. Cuando el parámetro es un evento del DOM, debes anotarlo explícitamente.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          <code>useCallback</code> también infiere el tipo. Cuando el parámetro
+          es un evento del DOM, debes anotarlo explícitamente.
         </p>
         <CodeBlock codigo={CODIGO_USECALLBACK} archivo="Buscador.tsx" />
       </section>
 
       {/* 04 — EVENT HANDLER TYPES */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="04" etiqueta="EVENT HANDLER TYPES" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          React exporta tipos de conveniencia para event handlers. El genérico <code>&lt;T&gt;</code> es el elemento HTML que origina el evento.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          React exporta tipos de conveniencia para event handlers. El genérico{" "}
+          <code>&lt;T&gt;</code> es el elemento HTML que origina el evento.
         </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            marginBottom: "16px",
+          }}
+        >
           <ConceptCard tipo="error">
-            Sin tipo en el parámetro <code>e</code>, TypeScript infiere <code>any</code> o da un error de "implicitly has any type". Pierdes el tipado del evento.
+            Sin tipo en el parámetro <code>e</code>, TypeScript infiere{" "}
+            <code>any</code> o da un error de "implicitly has any type". Pierdes
+            el tipado del evento.
           </ConceptCard>
           <ConceptCard tipo="exito">
-            Con <code>React.ChangeEvent&lt;HTMLInputElement&gt;</code>, TypeScript conoce todos los campos del evento: <code>e.target.value</code>, <code>e.target.checked</code>, <code>e.currentTarget</code>, etc.
+            Con <code>React.ChangeEvent&lt;HTMLInputElement&gt;</code>,
+            TypeScript conoce todos los campos del evento:{" "}
+            <code>e.target.value</code>, <code>e.target.checked</code>,{" "}
+            <code>e.currentTarget</code>, etc.
           </ConceptCard>
         </div>
         <CodeBlock codigo={CODIGO_HANDLER_TYPE} archivo="handlers.tsx" />
       </section>
 
       {/* 05 — EJEMPLO AVANZADO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="05" etiqueta="EJEMPLO: HOOK DE FORMULARIO" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Un custom hook que combina <code>useState</code>, <code>useMemo</code> y <code>useCallback</code> con tipos completamente inferidos.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Un custom hook que combina <code>useState</code>, <code>useMemo</code>{" "}
+          y <code>useCallback</code> con tipos completamente inferidos.
         </p>
         <CodeBlock codigo={CODIGO_FORMULARIO} archivo="useFormulario.ts" />
       </section>
@@ -267,13 +331,19 @@ export default function UseMemoCallbackPage() {
       {/* 06 — PLAYGROUND */}
       <section>
         <SectionTitle numero="06" etiqueta="PLAYGROUND" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Agrega los tipos correctos a los event handlers. Pista: usa <code>React.ChangeEvent</code> y <code>React.FormEvent</code> con los elementos HTML correspondientes.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Agrega los tipos correctos a los event handlers. Pista: usa{" "}
+          <code>React.ChangeEvent</code> y <code>React.FormEvent</code> con los
+          elementos HTML correspondientes.
         </p>
         <TypescriptPlayground
           codigoInicial={PLAYGROUND_INICIAL}
           archivo="ejercicio-06.tsx"
-          altura={220}
+          altura={520}
+        />
+        <PlaygroundSolucion
+          codigo={PLAYGROUND_SOLUCION}
+          archivo="solucion-06.tsx"
         />
       </section>
     </>

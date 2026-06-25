@@ -1,7 +1,8 @@
-import SectionTitle from '../components/ui/SectionTitle';
-import ConceptCard from '../components/ui/ConceptCard';
-import CodeBlock from '../components/ui/CodeBlock';
-import TypescriptPlayground from '../components/playground/TypescriptPlayground';
+import SectionTitle from "../components/ui/SectionTitle";
+import ConceptCard from "../components/ui/ConceptCard";
+import CodeBlock from "../components/ui/CodeBlock";
+import TypescriptPlayground from "../components/playground/TypescriptPlayground";
+import PlaygroundSolucion from "../components/ui/PlaygroundSolucion";
 
 const CODIGO_DOM_EVENTS = `
 // React define tipos para todos los eventos del DOM
@@ -119,6 +120,31 @@ function Boton({ variante, className, children, ...resto }: BotonProps) {
 // más la prop 'variante' que definimos nosotros
 `;
 
+const PLAYGROUND_SOLUCION = `
+function CampoTexto() {
+  const [valor, setValor] = React.useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setValor(e.target.value);
+
+  return <input value={valor} onChange={handleChange} />;
+}
+
+interface TarjetaProps {
+  titulo: string;
+  children: React.ReactNode;
+}
+
+function Tarjeta({ titulo, children }: TarjetaProps) {
+  return <div><h2>{titulo}</h2>{children}</div>;
+}
+
+const estilos: React.CSSProperties = {
+  backgroundColor: '#3178c6',
+  padding: '8px 16px',
+  borderRadius: '6px',
+};
+`;
+
 const PLAYGROUND_INICIAL = `
 // Ejercicio: reemplaza los ??? con los tipos correctos de React
 
@@ -153,95 +179,134 @@ const estilos: ??? = {
 export default function TiposUtilesPage() {
   return (
     <>
-      <header style={{ marginBottom: '48px' }}>
+      <header style={{ marginBottom: "48px" }}>
         <div
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '12px',
+            fontFamily: "var(--font-mono)",
+            fontSize: "12px",
             fontWeight: 600,
-            letterSpacing: '2px',
-            color: 'var(--accent)',
-            marginBottom: '16px',
+            letterSpacing: "2px",
+            color: "var(--accent)",
+            marginBottom: "16px",
           }}
         >
           MÓDULO 7
         </div>
         <h1
           style={{
-            fontSize: '48px',
+            fontSize: "48px",
             fontWeight: 700,
-            color: 'var(--text-primary)',
-            margin: '0 0 14px',
-            letterSpacing: '-1.5px',
+            color: "var(--text-primary)",
+            margin: "0 0 14px",
+            letterSpacing: "-1.5px",
             lineHeight: 1,
           }}
         >
           Tipos Útiles
         </h1>
-        <p style={{ fontSize: '17px', color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>
+        <p
+          style={{
+            fontSize: "17px",
+            color: "var(--text-muted)",
+            margin: 0,
+            lineHeight: 1.5,
+          }}
+        >
           DOM Events, ReactNode, CSSProperties y más
         </p>
       </header>
 
       {/* 01 — CONCEPTO */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="01" etiqueta="CONCEPTO" />
         <p className="page-body" style={{ margin: 0 }}>
-          El paquete <code>@types/react</code> incluye tipos predefinidos para los casos más comunes: eventos del DOM, contenido JSX, estilos inline y props de elementos HTML. Conocerlos evita tener que definir tipos a mano y garantiza compatibilidad con React.
+          El paquete <code>@types/react</code> incluye tipos predefinidos para
+          los casos más comunes: eventos del DOM, contenido JSX, estilos inline
+          y props de elementos HTML. Conocerlos evita tener que definir tipos a
+          mano y garantiza compatibilidad con React.
         </p>
       </section>
 
       {/* 02 — DOM EVENTS */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="02" etiqueta="DOM EVENTS" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          React exporta tipos para todos los eventos estándar del DOM. El genérico <code>&lt;T&gt;</code> especifica el elemento HTML que origina el evento, lo que da acceso tipado a sus propiedades específicas (<code>e.target.value</code>, <code>e.target.files</code>, etc.).
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          React exporta tipos para todos los eventos estándar del DOM. El
+          genérico <code>&lt;T&gt;</code> especifica el elemento HTML que
+          origina el evento, lo que da acceso tipado a sus propiedades
+          específicas (<code>e.target.value</code>, <code>e.target.files</code>,
+          etc.).
         </p>
         <CodeBlock codigo={CODIGO_DOM_EVENTS} archivo="eventos.tsx" />
         <ConceptCard tipo="nota">
-          La diferencia entre <code>e.target</code> y <code>e.currentTarget</code>: <code>currentTarget</code> siempre es el elemento con el event listener (el elemento del genérico), mientras que <code>target</code> puede ser un hijo. Usa <code>currentTarget</code> cuando necesites el tipo exacto.
+          La diferencia entre <code>e.target</code> y{" "}
+          <code>e.currentTarget</code>: <code>currentTarget</code> siempre es el
+          elemento con el event listener (el elemento del genérico), mientras
+          que <code>target</code> puede ser un hijo. Usa{" "}
+          <code>currentTarget</code> cuando necesites el tipo exacto.
         </ConceptCard>
       </section>
 
       {/* 03 — REACTNODE Y REACTELEMENT */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="03" etiqueta="REACTNODE Y REACTELEMENT" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Para tipar la prop <code>children</code> o cualquier prop que reciba contenido JSX, tienes dos opciones principales con comportamientos distintos.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Para tipar la prop <code>children</code> o cualquier prop que reciba
+          contenido JSX, tienes dos opciones principales con comportamientos
+          distintos.
         </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "12px",
+            marginBottom: "16px",
+          }}
+        >
           <ConceptCard tipo="exito" titulo="ReactNode (más flexible)">
-            Acepta cualquier cosa que React pueda renderizar: JSX, strings, números, arrays, <code>null</code> o <code>undefined</code>. Úsalo para <code>children</code> en componentes de layout.
+            Acepta cualquier cosa que React pueda renderizar: JSX, strings,
+            números, arrays, <code>null</code> o <code>undefined</code>. Úsalo
+            para <code>children</code> en componentes de layout.
           </ConceptCard>
           <ConceptCard tipo="nota" titulo="ReactElement (más restrictivo)">
-            Solo acepta elementos JSX (el resultado de llamar a <code>React.createElement</code>). Úsalo cuando el componente necesita clonar o inspeccionar sus hijos.
+            Solo acepta elementos JSX (el resultado de llamar a{" "}
+            <code>React.createElement</code>). Úsalo cuando el componente
+            necesita clonar o inspeccionar sus hijos.
           </ConceptCard>
         </div>
         <CodeBlock codigo={CODIGO_REACTNODE} archivo="tipos-contenido.ts" />
       </section>
 
       {/* 04 — CSS PROPERTIES */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="04" etiqueta="CSSPROPERTIES" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          <code>React.CSSProperties</code> tipea objetos de estilos inline. Detecta errores de tipeo en los nombres de propiedades CSS y verifica que los valores sean del tipo correcto.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          <code>React.CSSProperties</code> tipea objetos de estilos inline.
+          Detecta errores de tipeo en los nombres de propiedades CSS y verifica
+          que los valores sean del tipo correcto.
         </p>
         <CodeBlock codigo={CODIGO_CSS_PROPERTIES} archivo="estilos.tsx" />
       </section>
 
       {/* 05 — COMPONENT PROPS */}
-      <section style={{ marginBottom: '44px' }}>
+      <section style={{ marginBottom: "44px" }}>
         <SectionTitle numero="05" etiqueta="COMPONENTPROPS" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          <code>ComponentProps&lt;'elemento'&gt;</code> extrae todos los atributos de un elemento HTML nativo. Es la forma más limpia de crear componentes wrapper que respetan la API nativa.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          <code>ComponentProps&lt;'elemento'&gt;</code> extrae todos los
+          atributos de un elemento HTML nativo. Es la forma más limpia de crear
+          componentes wrapper que respetan la API nativa.
         </p>
         <CodeBlock codigo={CODIGO_COMPONENT_PROPS} archivo="Boton.tsx" />
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           <ConceptCard tipo="error">
-            Definir manualmente <code>onClick</code>, <code>disabled</code>, <code>type</code>, etc. es tedioso y puede quedar desactualizado. Si el elemento nativo agrega atributos, tu componente no los heredará.
+            Definir manualmente <code>onClick</code>, <code>disabled</code>,{" "}
+            <code>type</code>, etc. es tedioso y puede quedar desactualizado. Si
+            el elemento nativo agrega atributos, tu componente no los heredará.
           </ConceptCard>
           <ConceptCard tipo="exito">
-            Con <code>ComponentProps&lt;'button'&gt;</code>, el componente hereda automáticamente todos los atributos del botón y solo tienes que agregar las props propias.
+            Con <code>ComponentProps&lt;'button'&gt;</code>, el componente
+            hereda automáticamente todos los atributos del botón y solo tienes
+            que agregar las props propias.
           </ConceptCard>
         </div>
       </section>
@@ -249,13 +314,19 @@ export default function TiposUtilesPage() {
       {/* 06 — PLAYGROUND */}
       <section>
         <SectionTitle numero="06" etiqueta="PLAYGROUND" />
-        <p className="page-body" style={{ marginBottom: '16px' }}>
-          Reemplaza los <code>???</code> con los tipos correctos de React. Pista: <code>React.ChangeEvent</code>, <code>ReactElement</code>, <code>ReactNode</code>, <code>React.CSSProperties</code>.
+        <p className="page-body" style={{ marginBottom: "16px" }}>
+          Reemplaza los <code>???</code> con los tipos correctos de React.
+          Pista: <code>React.ChangeEvent</code>, <code>ReactElement</code>,{" "}
+          <code>ReactNode</code>, <code>React.CSSProperties</code>.
         </p>
         <TypescriptPlayground
           codigoInicial={PLAYGROUND_INICIAL}
           archivo="ejercicio-07.tsx"
-          altura={240}
+          altura={520}
+        />
+        <PlaygroundSolucion
+          codigo={PLAYGROUND_SOLUCION}
+          archivo="solucion-07.tsx"
         />
       </section>
     </>
